@@ -1,6 +1,6 @@
 {
   "name": "immich-core",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "title": "Immich Core",
   "description": "Core workflow capabilities for Immich",
   "author": "Immich Team",
@@ -70,7 +70,8 @@
             "items": {
               "type": "string"
             },
-            "description": "List of person to match"
+            "description": "List of person to match",
+            "subType": "people-picker"
           },
           "matchAny": {
             "type": "boolean",
@@ -117,7 +118,8 @@
         "properties": {
           "albumId": {
             "type": "string",
-            "description": "Target album ID"
+            "description": "Target album ID",
+            "subType": "album-picker"
           }
         },
         "required": ["albumId"]
