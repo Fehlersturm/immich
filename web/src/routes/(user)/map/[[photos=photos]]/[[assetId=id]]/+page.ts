@@ -7,11 +7,15 @@ import { getFormatter } from '$lib/utils/i18n';
 import { getAssetInfoFromParam } from '$lib/utils/navigation';
 import type { PageLoad } from './$types';
 
-export const load = (async ({ params, url }) => {
+export const load = (async ({ params, url, parent }) => {
   await authenticate(url);
   const asset = await getAssetInfoFromParam(params);
   const $t = await getFormatter();
 
+  // layout.ts and this load function run concurrently by default, causing a race condition
+  // between accessing and initializing the `featureFlagsManager`.
+  // By explicitly awaiting the parent a strict order can be enforced
+  await parent();
   if (!featureFlagsManager.value.map) {
     handlePromiseError(goto(AppRoute.PHOTOS));
   }
